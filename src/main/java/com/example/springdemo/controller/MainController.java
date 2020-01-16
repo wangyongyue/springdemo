@@ -16,5 +16,23 @@ public class MainController {
 
         return testService.getList();
     }
+    @RequestMapping("/c")
+    public Object createTable(){
+
+        testService.createTable();
+        return true;
+    }
+    @RequestMapping("/u")
+    public Object updateTable(){
+
+        testService.updateTable();
+        return true;
+    }
+    @RequestMapping("/i")
+    public Object insert(){
+
+        testService.insert();
+        return true;
+    }
 
 }

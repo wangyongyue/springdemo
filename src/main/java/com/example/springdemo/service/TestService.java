@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,21 +17,27 @@ public class TestService {
     public List<Test> getList(){
 
 
-
-        String sql = "CREATE TABLE test (user_id integer, name varchar(100)))";
-
+        String sqlTest = "select  * from test";
         RowMapper<Test> rm = new BeanPropertyRowMapper<>(Test.class);
-        jdbcTemplate.execute(sql);
-
-        Test a = new Test();
-        a.setName(String.valueOf(123));
-        Test b = new Test();
-        b.setName("bbbb");
-
-        ArrayList l = new ArrayList();
-        l.add(a);
-        l.add(b);
-        return l;
+        return jdbcTemplate.query(sqlTest,rm);
 
     }
+    public void createTable(){
+
+        String sql = "create table if not exists test (id int auto_increment primary key,name varchar (100)" +
+                ",data text)";
+        jdbcTemplate.execute(sql);
+    }
+    public void updateTable(){
+
+        String sql = "drop table test";
+        jdbcTemplate.execute(sql);
+
+    }
+    public void insert(){
+
+        String sql = "insert into test (name,data) values ('abc','我的天啊')";
+        jdbcTemplate.execute(sql);
+    }
+
 }

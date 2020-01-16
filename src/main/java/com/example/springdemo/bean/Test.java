@@ -3,6 +3,7 @@ package com.example.springdemo.bean;
 public class Test {
     long id;
     String name;
+    String data;
 
     public long getId() {
         return id;
@@ -18,5 +19,13 @@ public class Test {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getData() {
+        return data;
     }
 }

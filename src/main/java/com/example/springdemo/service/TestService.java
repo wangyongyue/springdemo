@@ -2,7 +2,9 @@ package com.example.springdemo.service;
 
 import com.example.springdemo.bean.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,12 +17,15 @@ public class TestService {
     JdbcTemplate jdbcTemplate;
     public List<Test> getList(){
 
-//        String sql = "select * from position";
-//        RowMapper<Test> rm = new BeanPropertyRowMapper<>(Test.class);
-//        return jdbcTemplate.query(sql,rm);
-//
+
+
+        String sql = "CREATE TABLE test (user_id integer, name varchar(100)))";
+
+        RowMapper<Test> rm = new BeanPropertyRowMapper<>(Test.class);
+        jdbcTemplate.execute(sql);
+
         Test a = new Test();
-        a.setName("adfb");
+        a.setName(String.valueOf(123));
         Test b = new Test();
         b.setName("bbbb");
 

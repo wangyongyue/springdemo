@@ -16,6 +16,12 @@ public class MainController {
 
         return testService.getList();
     }
+    @RequestMapping("/d")
+    public Object getTest(long id){
+
+        System.out.println(id);
+        return testService.geTest(id);
+    }
     @RequestMapping("/c")
     public Object createTable(){
 

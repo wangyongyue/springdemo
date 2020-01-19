@@ -14,7 +14,7 @@ public class ModularController {
     @RequestMapping("/getModlar")
     public Object hello(){
 
-        return testService.getList();
+        return "/getPage";
     }
 
 

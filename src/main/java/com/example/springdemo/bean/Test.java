@@ -1,10 +1,14 @@
 package com.example.springdemo.bean;
 
 import net.sf.json.JSONObject;
+import org.springframework.stereotype.Component;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
-public class Test {
+
+public class Test extends Base{
     long id;
     String name;
 
@@ -13,6 +17,28 @@ public class Test {
     String title3;
 
 
+    @Override
+    public String listSql(){
+
+        return "select id,data from test";
+    }
+    @Override
+    public String insertSql(){
+
+        String sql = "insert into test (name,data) values ('abc','" + this.setJsonForModel() +"')";
+        return sql;
+    }
+    @Override
+    public String updateSql(){
+
+        return "";
+    }
+    @Override
+    public String deleteSql(){
+
+        return "delete from test where id = " + String.valueOf(this.id);
+    }
+    @Override
     public String setJsonForModel(){
 
         JSONObject json = new JSONObject();
@@ -22,8 +48,8 @@ public class Test {
 
         return json.toString();
     }
-
-    public static Test setModelForJson(Map<String,Object> map){
+    @Override
+    public Test setModelForJson(Map<String,Object> map){
 
         Test model = new Test();
         JSONObject json = JSONObject.fromObject(map.get("data"));
@@ -37,6 +63,13 @@ public class Test {
 
         return model;
     }
+
+
+
+
+
+
+
 
     public String getTitle1() {
         return title1;

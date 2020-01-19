@@ -1,10 +1,8 @@
 package com.example.springdemo.service;
 
 import com.example.springdemo.bean.Base;
-import com.example.springdemo.bean.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class TestService {
+public class BaseService {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
@@ -32,19 +30,19 @@ public class TestService {
         return jdbcTemplate.update(base.insertSql());
 
     }
-    public void updateTable(){
+    public int deleteBase(Base base){
 
-        String sql = "drop table test";
-        jdbcTemplate.execute(sql);
+        return jdbcTemplate.update(base.deleteSql());
 
     }
 
-    public void createTable(){
+    public int updateBase(Base base){
 
-        String sql = "create table if not exists test (id int auto_increment primary key,name varchar (100)" +
-                ",data text)";
-        jdbcTemplate.execute(sql);
+        return jdbcTemplate.update(base.updateSql());
+
     }
+
+
 
 
 }

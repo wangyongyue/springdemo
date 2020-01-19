@@ -66,11 +66,6 @@ public class Test extends Base{
 
 
 
-
-
-
-
-
     public String getTitle1() {
         return title1;
     }

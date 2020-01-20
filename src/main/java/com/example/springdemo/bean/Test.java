@@ -1,6 +1,7 @@
 package com.example.springdemo.bean;
 
 import net.sf.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,12 @@ public class Test extends Base{
     String title2;
     String title3;
 
+    @Override
+    public String createSql(){
+
+        return "create table if not exists test (id int auto_increment primary key,name varchar (100)" +
+                ",data text)";
+    }
 
     @Override
     public String listSql(){
@@ -49,7 +56,7 @@ public class Test extends Base{
         return json.toString();
     }
     @Override
-    public Test setModelForJson(Map<String,Object> map){
+    public Base setModelForJson(Map<String,Object> map){
 
         Test model = new Test();
         JSONObject json = JSONObject.fromObject(map.get("data"));

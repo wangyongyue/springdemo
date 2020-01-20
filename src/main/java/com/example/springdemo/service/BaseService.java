@@ -16,6 +16,9 @@ public class BaseService {
     JdbcTemplate jdbcTemplate;
     public List<Base> getList(Base base){
 
+        this.beforeSql(base);
+
+
         List<Base> a =  new ArrayList<>();
         List<Map<String,Object>> list = jdbcTemplate.queryForList(base.listSql());
         for (Map<String,Object> json : list){
@@ -27,21 +30,30 @@ public class BaseService {
     }
     public int insertBase(Base base){
 
+        this.beforeSql(base);
+
         return jdbcTemplate.update(base.insertSql());
 
     }
     public int deleteBase(Base base){
 
+        this.beforeSql(base);
         return jdbcTemplate.update(base.deleteSql());
 
     }
 
     public int updateBase(Base base){
+        this.beforeSql(base);
 
         return jdbcTemplate.update(base.updateSql());
 
     }
 
+    private int beforeSql(Base base){
+
+        return jdbcTemplate.update(base.createSql());
+
+    }
 
 
 

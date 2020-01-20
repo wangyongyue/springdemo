@@ -6,6 +6,10 @@ import java.util.Map;
 
 public class Base {
 
+    public String createSql(){
+
+        return "";
+    }
     public String listSql(){
 
         return "";

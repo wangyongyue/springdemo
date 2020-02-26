@@ -4,21 +4,22 @@ import net.sf.json.JSONObject;
 
 import java.util.Map;
 
-public class Modular extends Base{
+public class Word extends Base{
 
 
     long id;
-    String module;
     String name;
 
+    String style;
+
     public  String table(){
-        return "modular" + String.valueOf(getUserId());
+        return "word" + getStyle();
     }
     @Override
     public String createSql(){
 
         String table =  table();
-        return "create table if not exists " + table + " (id int auto_increment primary key , name varchar (100)" +
+        return "create table if not exists " + table + " (id int auto_increment primary key " +
                 ",data text)";
     }
 
@@ -26,21 +27,17 @@ public class Modular extends Base{
     public String listSql(){
 
         String table =  table();
+
         if (id > 0){
 
-            return "select id,data,name from " + table + " where id = " + getId();
-
-        }else if (name != null){
-
-            return "select id,data,name from " + table + " where name = " + "'" + name + "'" ;
+            return "select id,data from " + table + " where id = " + getId();
         }
-
         return "select id,data from " + table;
     }
     @Override
     public String insertSql(){
         String table =  table();
-        String sql = "insert into " + table + " (data,name) values ('" + this.setJsonForModel() + "','" + getName() +"')";
+        String sql = "insert into " + table + " (data) values ('" + this.setJsonForModel() + "')";
         return sql;
     }
     @Override
@@ -48,8 +45,8 @@ public class Modular extends Base{
 
         String table =  table();
         String sql = "update " + table + " set "
-                + "data = " + "'" + this.setJsonForModel()+ "', "
-                + "name = " + "'"+ getName() + "'" + " where id = " + getId() ;
+                + "data = " + "'" + this.setJsonForModel()+ "' "
+                + " where id = " + getId() ;
         return sql;
     }
     @Override
@@ -62,16 +59,14 @@ public class Modular extends Base{
     public String setJsonForModel(){
 
         JSONObject json = new JSONObject();
-        json.put("module",module);
         json.put("name",name);
         return json.toString();
     }
     @Override
     public Base setModelForJson(Map<String,Object> map){
 
-        Modular model = new Modular();
+        Word model = new Word();
         JSONObject json = JSONObject.fromObject(map.get("data"));
-        model.module =  json.getString("module");
         model.name =  json.getString("name");
         model.id = Long.valueOf(String.valueOf(map.get("id")));
         return model;
@@ -86,19 +81,18 @@ public class Modular extends Base{
         this.id = id;
     }
 
-    public void setModule(String module) {
-        this.module = module;
-    }
-
-    public String getModule() {
-        return module;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
-
     public String getName() {
         return name;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
+    }
+
+    public String getStyle() {
+        return style;
     }
 }

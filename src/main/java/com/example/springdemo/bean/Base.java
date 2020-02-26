@@ -1,10 +1,27 @@
 package com.example.springdemo.bean;
 
-import net.sf.json.JSONObject;
-
 import java.util.Map;
 
 public class Base {
+
+    String token;
+    long userId;
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
 
     public String createSql(){
 

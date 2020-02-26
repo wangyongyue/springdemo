@@ -1,6 +1,7 @@
 package com.example.springdemo.service;
 
 import com.example.springdemo.bean.Base;
+import com.example.springdemo.bean.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,6 @@ public class BaseService {
     public List<Base> getList(Base base){
 
         this.beforeSql(base);
-
 
         List<Base> a =  new ArrayList<>();
         List<Map<String,Object>> list = jdbcTemplate.queryForList(base.listSql());
@@ -50,6 +50,12 @@ public class BaseService {
     }
 
     private int beforeSql(Base base){
+
+        if (!base.getClass().isAssignableFrom(User.class))
+        {
+
+
+        }
 
         return jdbcTemplate.update(base.createSql());
 

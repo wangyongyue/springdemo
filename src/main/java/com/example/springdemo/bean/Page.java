@@ -1,59 +1,70 @@
 package com.example.springdemo.bean;
 
 import net.sf.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 
 import java.util.Map;
+
 
 public class Page extends Base{
 
 
     long id;
+    String page;
     String name;
 
-    String title1;
-    String title2;
-    String title3;
-
+    public  String table(){
+        return "page" + String.valueOf(getUserId());
+    }
     @Override
     public String createSql(){
 
-        return "create table if not exists page (id int auto_increment primary key,name varchar (100)" +
+        String table =  table();
+        return "create table if not exists " + table + " (id int auto_increment primary key , name varchar (100)" +
                 ",data text)";
     }
 
     @Override
     public String listSql(){
 
-        return "select id,data from page";
+        String table =  table();
+
+        if (id > 0){
+
+            return "select id,data,name from " + table + " where id = " + getId();
+        }else if (name != null){
+
+            return "select id,data,name from " + table + " where name = " + "'" + name + "'" ;
+        }
+
+        return "select id,data,name from " + table;
     }
     @Override
     public String insertSql(){
-
-        String sql = "insert into page (data) values ('" + this.setJsonForModel() +"')";
+        String table =  table();
+        String sql = "insert into " + table + " (data,name) values ('" + this.setJsonForModel() + "','" + getName() +"')";
         return sql;
     }
     @Override
     public String updateSql(){
 
-        return "";
+        String table =  table();
+        String sql = "update " + table + " set "
+                + "data = " + "'" + this.setJsonForModel()+ "', "
+                + "name = " + "'"+ getName() + "'" + " where id = " + getId() ;
+        return sql;
     }
     @Override
     public String deleteSql(){
 
-        return "delete from page where id = " + String.valueOf(this.id);
+        String table =  table();
+        return "delete from " + table + " where id = " + String.valueOf(this.id);
     }
     @Override
     public String setJsonForModel(){
 
         JSONObject json = new JSONObject();
-        json.put("title1",title1);
-        json.put("title2",title2);
-        json.put("title3",title3);
-
+        json.put("page",page);
+        json.put("name",name);
         return json.toString();
     }
     @Override
@@ -61,14 +72,9 @@ public class Page extends Base{
 
         Page model = new Page();
         JSONObject json = JSONObject.fromObject(map.get("data"));
-        model.title1 =  json.getString("title1");
-        model.title2 =  json.getString("title2");
-        model.title3 =  json.getString("title3");
-        if (json.has("name")){
-            model.name =  json.getString("name");
-        }
+        model.page =  json.getString("page");
+        model.name =  json.getString("name");
         model.id = Long.valueOf(String.valueOf(map.get("id")));
-
         return model;
     }
 
@@ -81,35 +87,18 @@ public class Page extends Base{
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public void setPage(String page) {
+        this.page = page;
+    }
+
+    public String getPage() {
+        return page;
     }
 
     public void setName(String name) {
         this.name = name;
     }
-
-    public void setTitle1(String title1) {
-        this.title1 = title1;
-    }
-
-    public void setTitle2(String title2) {
-        this.title2 = title2;
-    }
-
-    public void setTitle3(String title3) {
-        this.title3 = title3;
-    }
-
-    public String getTitle1() {
-        return title1;
-    }
-
-    public String getTitle2() {
-        return title2;
-    }
-
-    public String getTitle3() {
-        return title3;
+    public String getName() {
+        return name;
     }
 }

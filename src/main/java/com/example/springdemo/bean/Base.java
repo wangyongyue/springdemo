@@ -1,11 +1,15 @@
 package com.example.springdemo.bean;
 
+import net.sf.json.JSONObject;
+
 import java.util.Map;
 
 public class Base {
 
     String token;
     long userId;
+    JSONObject json;
+
 
     public void setToken(String token) {
         this.token = token;
@@ -54,5 +58,13 @@ public class Base {
        Base model = new Base();
 
         return model;
+    }
+
+    public void setJson(JSONObject json) {
+        this.json = json;
+    }
+
+    public JSONObject getJson() {
+        return json;
     }
 }

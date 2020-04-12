@@ -15,7 +15,6 @@ public class NewController {
     @Autowired
     NewService newService;
 
-
     public New getonfigureObject(String table){
 
         New m = new New();

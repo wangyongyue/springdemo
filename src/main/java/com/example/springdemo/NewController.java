@@ -19,13 +19,13 @@ public class NewController {
 
         New m = new New();
         try {
-            Class className = Class.forName("com.example.springdemo.warehouse." + table);
+            String str = table.replace("/",".");
+            Class className = Class.forName("com.example.springdemo.models" + str);
             m = (New)className.newInstance();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return m;
     }
 

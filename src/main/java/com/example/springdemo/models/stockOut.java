@@ -1,8 +1,8 @@
-package com.example.springdemo.warehouse;
+package com.example.springdemo.models;
 
 import com.example.springdemo.New;
 
-public class StockOut extends New {
+public class stockOut extends New {
 
     @Override
     public String getTable() {

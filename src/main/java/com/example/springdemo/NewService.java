@@ -27,7 +27,6 @@ public class NewService {
     }
     public int insertBase(New base){
 
-
         return jdbcTemplate.update(base.insertSql());
 
     }

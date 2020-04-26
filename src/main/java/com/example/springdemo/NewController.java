@@ -34,6 +34,9 @@ public class NewController {
 
         JSONObject obj = JSONObject.fromObject(params);
         New m = getonfigureObject(table);
+        if (m.checkParams(params) != null){
+            return Result.error(m.checkParams(params));
+        }
         m.setParams(obj);
         return Result.success(newService.getList(m));
     }
@@ -43,6 +46,9 @@ public class NewController {
 
         JSONObject obj = JSONObject.fromObject(params);
         New m = getonfigureObject(table);
+        if (m.checkParams(params) != null){
+            return Result.error(m.checkParams(params));
+        }
         m.setParams(obj);
         if ((long)obj.get("id") > 0){
 
@@ -64,6 +70,9 @@ public class NewController {
 
         JSONObject obj = JSONObject.fromObject(params);
         New m = getonfigureObject(table);
+        if (m.checkParams(params) != null){
+            return Result.error(m.checkParams(params));
+        }
         m.setParams(obj);
         if (newService.deleteBase(m) == 1){
             return Result.success("success");

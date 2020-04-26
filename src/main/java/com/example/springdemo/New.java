@@ -19,6 +19,12 @@ public class New {
                 ",data text)";
     }
 
+    public String checkParams(String params) {
+
+
+        return null;
+    }
+
     public String listSql(){
 
         if (id > 0){
